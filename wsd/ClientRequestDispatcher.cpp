@@ -366,6 +366,10 @@ getConvertToBrokerImplementation(const std::string& requestType, const std::stri
                                                  lang);
     else if (requestType == "extract-link-targets")
         return std::make_shared<ExtractLinkTargetsBroker>(fromPath, uriPublic, docKey, lang);
+    else if (requestType == "extract-document-structure")
+        return std::make_shared<ExtractDocumentStructureBroker>(fromPath, uriPublic, docKey, lang);
+    else if (requestType == "fill-document-structure")
+        return std::make_shared<FillDocumentStructureBroker>(fromPath, uriPublic, docKey, lang);
     else if (requestType == "get-thumbnail")
         return std::make_shared<GetThumbnailBroker>(fromPath, uriPublic, docKey, lang, target);
 
@@ -1387,6 +1391,8 @@ void ClientRequestDispatcher::handlePostRequest(const RequestDetails& requestDet
 
     if (requestDetails.equals(1, "convert-to") ||
         requestDetails.equals(1, "extract-link-targets") ||
+        requestDetails.equals(1, "extract-document-structure") ||
+        requestDetails.equals(1, "fill-document-structure") ||
         requestDetails.equals(1, "get-thumbnail"))
     {
         // Validate sender - FIXME: should do this even earlier.
